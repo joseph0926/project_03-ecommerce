@@ -5,6 +5,11 @@ import Root from "./pages/root";
 import ErrorPage from "./pages/ErrorPage";
 import HomePage from "./pages/HomePage";
 import ProductsPage from "./pages/ProductsPage";
+import ProductItems from "./pages/ProductItems";
+import ProductDetailPage from "./pages/ProductDetailPage";
+import CartPage from "./pages/CartPage";
+import AuthPage from "./pages/AuthPage";
+import AboutPage from "./pages/AboutPage";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -15,6 +20,11 @@ const App = () => {
       children: [
         { index: true, element: <HomePage /> },
         { path: "products", element: <ProductsPage /> },
+        { path: "products/:productId", element: <ProductDetailPage /> },
+        { path: "category/:productItem", element: <ProductItems /> },
+        { path: ":userId/cart", element: <CartPage /> },
+        { path: "auth", element: <AuthPage /> },
+        { path: "about", element: <AboutPage /> },
       ],
     },
   ]);

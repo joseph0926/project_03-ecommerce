@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { CartIcon } from "../helpers/Icons";
-import { MenuItem, NavHelp, SubMenuItem, SubNavHelp } from "../helpers/NavHelp";
+import { MenuItem, MobileIcon, NavHelp, SubMenuItem, SubNavHelp } from "../helpers/NavHelp";
 
 import { FaUserPlus } from "react-icons/fa";
 
 const MainNavbar = () => {
   const [open, setOpen] = useState("group");
+  const [showNav, setShowNav] = useState("translate-y-0");
+  const [lastScrollY, setLastScrollY] = useState(0);
+
   const groupOpenHandler = () => {
     if (open === "group open") {
       setOpen("group");
@@ -15,9 +18,29 @@ const MainNavbar = () => {
     }
   };
 
+  const controlNavbar = () => {
+    if (window.scrollY > 200) {
+      if (window.scrollY > lastScrollY) {
+        setShowNav("-translate-y-[80px]");
+      } else {
+        setShowNav("shdow-sm");
+      }
+    } else {
+      setShowNav("translate-y-0");
+    }
+    setLastScrollY(window.scrollY);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", controlNavbar);
+    return () => {
+      window.removeEventListener("scroll", controlNavbar);
+    };
+  }, [lastScrollY]);
+
   return (
-    <header className="text-zinc-200">
-      <nav className="sticky top-0 z-10 flex bg-gradient-to-r from-black to-gray-500 h-[5rem]">
+    <header className="text-zinc-200 sticky top-0 z-20">
+      <nav className={`w-full h-[5rem] flex bg-gradient-to-r from-black to-gray-500 ${showNav} transition-transform duration-300 `}>
         <div className="flex items-center gap-2 p-4">
           <Link to="/" className="text-3xl font-bold">
             E-<span className="text-sky-500">Commerce</span>
@@ -25,18 +48,16 @@ const MainNavbar = () => {
         </div>
         <div className="my-auto ml-auto block cursor-pointer pr-4 md:hidden">
           <div className={`${open} peer`} onClick={groupOpenHandler}>
-            <div className="relative top-0 h-1 w-8 rounded-full bg-zinc-200 transition-all group-open:top-2 group-open:rotate-45"></div>
-            <div className="mt-1 h-1 w-8 rounded-full bg-zinc-200 opacity-100 transition-all group-open:opacity-0"></div>
-            <div className="relative top-0 mt-1 h-1 w-8 rounded-full bg-zinc-200 transition-all group-open:-top-2 group-open:-rotate-45"></div>
+            <MobileIcon></MobileIcon>
           </div>
           <div className="absolute top-[62px] left-0 hidden w-full bg-gradient-to-r from-black to-gray-500 peer-open:block">
             <div
               className={`group relative h-full cursor-pointer text-zinc-300 transition-colors ease-in-out hover:bg-white/10 hover:text-zinc-200`}
             >
-              <Link to="/products" className="p-4 text-center font-bold">
+              <Link to="/products" className="p-4 text-center font-bold block">
                 Products
               </Link>
-              <div className="hidden group-hover:block">
+              <div className="hidden group-hover:flex flex-col">
                 <SubNavHelp category={"fa"}>
                   <span>패션</span>
                 </SubNavHelp>
@@ -67,10 +88,7 @@ const MainNavbar = () => {
           </div>
         </div>
         <div className="hidden flex-1 items-center justify-end md:flex">
-          <Link
-            to="/products"
-            className="group text-xl relative flex h-full cursor-pointer items-center p-4 font-bold text-zinc-300 transition-colors ease-in-out hover:bg-white/10 hover:text-zinc-200"
-          >
+          <div className="group text-xl relative flex h-full cursor-pointer items-center p-4 font-bold text-zinc-300 transition-colors ease-in-out hover:bg-white/10 hover:text-zinc-200">
             <span>Products</span>
             <div className="absolute top-full right-0 hidden w-full whitespace-nowrap rounded-b-md bg-gray-500 text-right group-hover:flex flex-col">
               <SubMenuItem category={"fa"}>
@@ -83,7 +101,7 @@ const MainNavbar = () => {
                 <span>디지털</span>
               </SubMenuItem>
             </div>
-          </Link>
+          </div>
           <MenuItem menu={`cart`}>
             <span className="mr-2">Cart</span> <CartIcon></CartIcon>
           </MenuItem>

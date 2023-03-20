@@ -5,10 +5,10 @@ import MainNavbar from "../components/UI/MainNavbar";
 
 const Root = () => {
   return (
-    <>
+    <div>
       <MainNavbar />
       <Outlet />
-    </>
+    </div>
   );
 };
 

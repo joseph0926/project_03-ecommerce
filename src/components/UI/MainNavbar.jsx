@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { CartIcon } from "../helpers/Icons";
-import { MenuItem, MobileIcon, NavHelp, SubMenuItem, SubNavHelp } from "../helpers/NavHelp";
+import {
+  MenuItem,
+  MobileIcon,
+  NavHelp,
+  SubMenuItem,
+  SubNavHelp,
+} from "../helpers/NavHelp";
 
 import { FaUserPlus } from "react-icons/fa";
 
@@ -40,7 +46,9 @@ const MainNavbar = () => {
 
   return (
     <header className="text-zinc-900 sticky top-0 z-20">
-      <nav className={`w-full h-[5rem] flex bg-gradient-to-r from-white to-gray-300 ${showNav} transition-transform duration-300 `}>
+      <nav
+        className={`w-full h-[5rem] flex bg-gradient-to-r from-white to-gray-300 ${showNav} transition-transform duration-300 `}
+      >
         <div className="flex items-center gap-2 p-4">
           <Link to="/" className="text-3xl font-bold">
             E-<span className="text-sky-500">Commerce</span>
@@ -88,7 +96,7 @@ const MainNavbar = () => {
           </div>
         </div>
         <div className="hidden flex-1 items-center justify-end md:flex">
-          <div className="group text-xl relative flex h-full cursor-pointer items-center p-4 font-bold text-zinc-900 transition-colors ease-in-out hover:bg-black/10 hover:text-zinc-700">
+          <div className="group text-xl relative flex h-full cursor-pointer items-center p-4 font-normal text-zinc-900 transition-colors ease-in-out hover:bg-black/10 hover:text-zinc-700">
             <span>Products</span>
             <div className="absolute top-full right-0 hidden w-full whitespace-nowrap rounded-b-md bg-zinc-200 text-right group-hover:flex flex-col">
               <SubMenuItem category={"fa"}>

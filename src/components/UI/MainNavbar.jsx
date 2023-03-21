@@ -39,8 +39,8 @@ const MainNavbar = () => {
   }, [lastScrollY]);
 
   return (
-    <header className="text-zinc-200 sticky top-0 z-20">
-      <nav className={`w-full h-[5rem] flex bg-gradient-to-r from-black to-gray-500 ${showNav} transition-transform duration-300 `}>
+    <header className="text-zinc-900 sticky top-0 z-20">
+      <nav className={`w-full h-[5rem] flex bg-gradient-to-r from-white to-gray-300 ${showNav} transition-transform duration-300 `}>
         <div className="flex items-center gap-2 p-4">
           <Link to="/" className="text-3xl font-bold">
             E-<span className="text-sky-500">Commerce</span>
@@ -50,9 +50,9 @@ const MainNavbar = () => {
           <div className={`${open} peer`} onClick={groupOpenHandler}>
             <MobileIcon></MobileIcon>
           </div>
-          <div className="absolute top-[62px] left-0 hidden w-full bg-gradient-to-r from-black to-gray-500 peer-open:block">
+          <div className="absolute top-[62px] left-0 hidden w-full bg-gradient-to-r from-white to-gray-300 peer-open:block">
             <div
-              className={`group relative h-full cursor-pointer text-zinc-300 transition-colors ease-in-out hover:bg-white/10 hover:text-zinc-200`}
+              className={`group relative h-full cursor-pointer text-zinc-900 transition-colors ease-in-out hover:bg-black/10 hover:text-zinc-700`}
             >
               <Link to="/products" className="p-4 text-center font-bold block">
                 Products
@@ -88,9 +88,9 @@ const MainNavbar = () => {
           </div>
         </div>
         <div className="hidden flex-1 items-center justify-end md:flex">
-          <div className="group text-xl relative flex h-full cursor-pointer items-center p-4 font-bold text-zinc-300 transition-colors ease-in-out hover:bg-white/10 hover:text-zinc-200">
+          <div className="group text-xl relative flex h-full cursor-pointer items-center p-4 font-bold text-zinc-900 transition-colors ease-in-out hover:bg-black/10 hover:text-zinc-700">
             <span>Products</span>
-            <div className="absolute top-full right-0 hidden w-full whitespace-nowrap rounded-b-md bg-gray-500 text-right group-hover:flex flex-col">
+            <div className="absolute top-full right-0 hidden w-full whitespace-nowrap rounded-b-md bg-zinc-200 text-right group-hover:flex flex-col">
               <SubMenuItem category={"fa"}>
                 <span>패션</span>
               </SubMenuItem>

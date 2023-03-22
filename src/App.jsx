@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Root from "./pages/root";
 import ErrorPage from "./pages/ErrorPage";
-import HomePage from "./pages/HomePage";
+import HomePage, { loader as featureProductsLoader } from "./pages/HomePage";
 import ProductsPage, { loader as productsLoader } from "./pages/ProductsPage";
 import ProductCategory from "./pages/ProductCategory";
 import ProductDetailPage from "./pages/ProductDetailPage";
@@ -18,7 +18,7 @@ const App = () => {
       element: <Root />,
       errorElement: <ErrorPage />,
       children: [
-        { index: true, element: <HomePage /> },
+        { index: true, element: <HomePage />, loader: featureProductsLoader },
         { path: "products", element: <ProductsPage />, loader: productsLoader },
         { path: "products/:productId", element: <ProductDetailPage /> },
         { path: "category/:productItem", element: <ProductCategory /> },

@@ -1,10 +1,12 @@
 import React from "react";
+import FeatureProducts from "../Products/FeatureProducts";
 import Hero from "./Hero";
 
-const Home = () => {
+const Home = ({ featureProducts }) => {
   return (
     <>
       <Hero />
+      <FeatureProducts products={featureProducts} />
     </>
   );
 };

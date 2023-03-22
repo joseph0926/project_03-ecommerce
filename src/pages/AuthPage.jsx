@@ -1,5 +1,5 @@
-import React from "react";
-import { json, redirect } from "react-router-dom";
+import React, { Suspense } from "react";
+import { json, redirect, Await } from "react-router-dom";
 
 import Auth from "../components/user/Auth";
 import Loading from "../components/UI/Loading";

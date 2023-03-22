@@ -3,13 +3,13 @@ import Product from "./Product";
 
 const FeatureProducts = ({ products }) => {
   return (
-    <div className="flex flex-wrap my-8 gap-[4%]">
+    <div className="flex flex-wrap my-8 ml-[4%] gap-[4%]">
       {products
         .map((product) => {
           return (
-            <div className="basis-[22%]">
-              <Product key={product.id} product={product} />
-            </div>
+            <span key={product.id} className="basis-[22%]">
+              <Product product={product} />
+            </span>
           );
         })
         .slice(0, 4)}

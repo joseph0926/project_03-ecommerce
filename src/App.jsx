@@ -8,7 +8,7 @@ import ProductsPage, { loader as productsLoader } from "./pages/ProductsPage";
 import ProductCategory from "./pages/ProductCategory";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import CartPage from "./pages/CartPage";
-import AuthPage from "./pages/AuthPage";
+import AuthPage, { action as authAction } from "./pages/AuthPage";
 import AboutPage from "./pages/AboutPage";
 
 const App = () => {
@@ -23,7 +23,7 @@ const App = () => {
         { path: "products/:productId", element: <ProductDetailPage /> },
         { path: "category/:productItem", element: <ProductCategory /> },
         { path: ":userId/cart", element: <CartPage /> },
-        { path: "auth", element: <AuthPage /> },
+        { path: "auth", element: <AuthPage />, action: authAction },
         { path: "about", element: <AboutPage /> },
       ],
     },

@@ -18,10 +18,10 @@ const ProductsPage = () => {
 async function loadProducts() {
   let response;
 
-  response = await fetch(API_URL);
-
-  if (response.status === 522) {
-    response = await fetch("");
+  if (response || !response?.status === 522) {
+    response = await fetch(API_URL);
+  } else {
+    response = await fetch("https://mocki.io/v1/763ddd71-00ce-4ee8-963b-e49eec513b11");
   }
 
   if (!response.ok) {

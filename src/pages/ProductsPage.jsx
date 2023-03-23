@@ -16,7 +16,13 @@ const ProductsPage = () => {
 };
 
 async function loadProducts() {
-  const response = await fetch(API_URL);
+  let response;
+
+  response = await fetch(API_URL);
+
+  if (response.status === 522) {
+    response = await fetch("");
+  }
 
   if (!response.ok) {
     return json({ message: "상품 데이터를 불러오는데 실패하였습니다,,," }, { status: 500 });

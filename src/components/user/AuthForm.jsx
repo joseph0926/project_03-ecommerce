@@ -1,9 +1,10 @@
 import React from "react";
 import { Link, Form, useActionData, useSearchParams } from "react-router-dom";
-
 import useInput from "../../hooks/use-input";
 
-const AuthForm = () => {
+import styles from "./AuthForm.module.css";
+
+const AuthForm = (props) => {
   const data = useActionData();
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -44,12 +45,12 @@ const AuthForm = () => {
     }
   };
 
-  const emailInputclasses = emailInputHasError ? "relative w-[300px] mt-[35px] group" : "relative w-[300px] mt-[35px]";
+  const emailInputclasses = emailInputHasError ? `${styles["input-box"]} ${styles.invalid}` : styles["input-box"];
   const passwordInputclasses = passwordInputHasError ? `${styles["input-box"]} ${styles.invalid}` : styles["input-box"];
 
   return (
-    <div className="w-full h-full inset-2 rounded-[8px] bg-zinc-300 z-10 p-[50px 40px] flex flex-col">
-      <h2 className="text-black font-bold text-center">{isLogin ? "로그인" : "회원가입"}</h2>
+    <div className={styles.form}>
+      <h2 className={styles.text}>{isLogin ? "로그인" : "회원가입"}</h2>
       <Form method="post">
         {data && data.errors && (
           <ul>
@@ -60,18 +61,8 @@ const AuthForm = () => {
         )}
         {data && data.message && <p>{data.message}</p>}
         <div className={emailInputclasses}>
-          <input
-            type="email"
-            name="email"
-            id="meail"
-            value={enteredEmail}
-            onChange={emailChangeHandler}
-            onBlur={emailBlurHandler}
-            className="relative w-full p-[20px 10px 10px] bg-transparent border-none outline-none text-base text-black peer"
-          ></input>
-          <span className="absolute left-0 p-[20px 10px 10px] text-black pointer-events-none transition-all duration-75 peer-focus:text-sky-200 peer-focus:translate-x-[-10px] translate-y-[-40px] group: ">
-            Email
-          </span>
+          <input type="email" name="email" id="meail" value={enteredEmail} onChange={emailChangeHandler} onBlur={emailBlurHandler}></input>
+          <span>Email</span>
           <i></i>
         </div>
         <div className={passwordInputclasses}>
@@ -87,11 +78,11 @@ const AuthForm = () => {
           <i></i>
         </div>
         {isLogin && (
-          <div className="flex justify-end mt-[2rem] mr-[1rem]">
-            <Link className="m-[10px 0] text-sm">비밀번호 찾기</Link>
+          <div className={styles.sub}>
+            <Link>비밀번호 찾기</Link>
           </div>
         )}
-        {!isLogin && <div className="block mt-[4.7em]"></div>}
+        {!isLogin && <div className={styles.dummy}></div>}
         <button disabled={formIsInValid}>{isLogin ? "로그인" : "회원가입"}</button>
       </Form>
     </div>

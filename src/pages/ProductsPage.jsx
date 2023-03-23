@@ -2,6 +2,7 @@ import React, { Suspense } from "react";
 import { Await, defer, json, useLoaderData } from "react-router-dom";
 
 import API_URL from "../../api-url";
+import { fulfillWithTimeLimit } from "../components/helpers/ApiHelp";
 import Products from "../components/Products/Products";
 import Loading from "../components/UI/Loading";
 
@@ -16,11 +17,20 @@ const ProductsPage = () => {
 };
 
 async function loadProducts() {
-  let response;
+  let timeLimit = 1000;
+  let failureValue = null;
+  let data = await fulfillWithTimeLimit(timeLimit, fetch(API_URL), failureValue);
 
-  if (response || !response?.status === 522) {
-    response = await fetch(API_URL);
+  let response;
+  if (data === null) {
+    console.log("asdf");
+    response = await fetch("https://mocki.io/v1/5b3b1257-f7ae-4bfa-abdd-fbcce5b6cb7f");
   } else {
+    console.log("qwer");
+    response = await fetch(API_URL);
+  }
+
+  if (!response || response?.status === 522) {
     response = await fetch("https://mocki.io/v1/763ddd71-00ce-4ee8-963b-e49eec513b11");
   }
 

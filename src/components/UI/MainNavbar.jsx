@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Form, Link, useRouteLoaderData } from "react-router-dom";
 import { CartIcon } from "../helpers/Icons";
 import {
   MenuItem,
@@ -9,9 +9,11 @@ import {
   SubNavHelp,
 } from "../helpers/NavHelp";
 
-import { FaUserPlus } from "react-icons/fa";
+import { FaUserMinus, FaUserPlus } from "react-icons/fa";
 
 const MainNavbar = () => {
+  const token = useRouteLoaderData("root");
+
   const [open, setOpen] = useState("group");
   const [showNav, setShowNav] = useState("translate-y-0");
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -96,7 +98,7 @@ const MainNavbar = () => {
           </div>
         </div>
         <div className="hidden flex-1 items-center justify-end md:flex">
-          <div className="group text-xl relative flex h-full cursor-pointer items-center p-4 font-normal text-zinc-900 transition-colors ease-in-out hover:bg-black/10 hover:text-zinc-700">
+          <div className="group text-xl relative flex h-full items-center p-4 font-normal text-zinc-900 transition-colors ease-in-out hover:bg-black/10 hover:text-zinc-700">
             <span>Products</span>
             <div className="absolute top-full right-0 hidden w-full whitespace-nowrap rounded-b-md bg-zinc-200 text-right group-hover:flex flex-col">
               <SubMenuItem category={"fa"}>
@@ -116,9 +118,21 @@ const MainNavbar = () => {
           <MenuItem menu={"about"}>
             <span>About</span>
           </MenuItem>
-          <MenuItem menu={"auth"}>
-            <span className="mr-2">Login</span> <FaUserPlus></FaUserPlus>
-          </MenuItem>
+          {!token && (
+            <MenuItem menu={"auth"}>
+              <span className="mr-2">Login</span> <FaUserPlus></FaUserPlus>
+            </MenuItem>
+          )}
+          {token && (
+            <Form
+              method="post"
+              action="/logout"
+              className="relative text-xl flex h-full cursor-pointer items-center p-4 font-normal text-zinc-900 transition-colors ease-in-out hover:bg-black/10 hover:text-zinc-700"
+            >
+              <button className="mr-2">Logout</button>
+              <FaUserMinus></FaUserMinus>
+            </Form>
+          )}
         </div>
       </nav>
     </header>

@@ -1,14 +1,23 @@
 import React from "react";
-import { Link, Form, useActionData, useSearchParams } from "react-router-dom";
+import {
+  Link,
+  Form,
+  useActionData,
+  useSearchParams,
+  useNavigation,
+} from "react-router-dom";
 import useInput from "../../hooks/use-input";
+import Loading from "../UI/Loading";
 
 import styles from "./AuthForm.module.css";
 
 const AuthForm = (props) => {
   const data = useActionData();
+  const navigation = useNavigation();
 
   const [searchParams, setSearchParams] = useSearchParams();
   const isLogin = searchParams.get("mode") === "signInWithPassword";
+  const isSubmitting = navigation.state === "submitting";
 
   const {
     value: enteredEmail,
@@ -45,23 +54,34 @@ const AuthForm = (props) => {
     }
   };
 
-  const emailInputclasses = emailInputHasError ? `${styles["input-box"]} ${styles.invalid}` : styles["input-box"];
-  const passwordInputclasses = passwordInputHasError ? `${styles["input-box"]} ${styles.invalid}` : styles["input-box"];
+  const emailInputclasses = emailInputHasError
+    ? `${styles["input-box"]} ${styles.invalid}`
+    : styles["input-box"];
+  const passwordInputclasses = passwordInputHasError
+    ? `${styles["input-box"]} ${styles.invalid}`
+    : styles["input-box"];
 
   return (
     <div className={styles.form}>
       <h2 className={styles.text}>{isLogin ? "로그인" : "회원가입"}</h2>
       <Form method="post">
         {data && data.errors && (
-          <ul>
+          <ul className={styles.error}>
             {Object.values(data.errors).map((err) => {
               return <li key={err}>{err}</li>;
             })}
           </ul>
         )}
-        {data && data.message && <p>{data.message}</p>}
+        {data && data.message && <p className={styles.error}>{data.message}</p>}
         <div className={emailInputclasses}>
-          <input type="email" name="email" id="meail" value={enteredEmail} onChange={emailChangeHandler} onBlur={emailBlurHandler}></input>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            value={enteredEmail}
+            onChange={emailChangeHandler}
+            onBlur={emailBlurHandler}
+          ></input>
           <span>Email</span>
           <i></i>
         </div>
@@ -83,7 +103,9 @@ const AuthForm = (props) => {
           </div>
         )}
         {!isLogin && <div className={styles.dummy}></div>}
-        <button disabled={formIsInValid}>{isLogin ? "로그인" : "회원가입"}</button>
+        <button disabled={isSubmitting} className={styles.btn}>
+          {isSubmitting ? <Loading /> : isLogin ? "로그인" : "회원가입"}
+        </button>
       </Form>
     </div>
   );

@@ -88,7 +88,7 @@
   color: #45f3ff;
 }
 
-form > button {
+.btn {
   border: none;
   outline: none;
   background: #45f3ff;
@@ -102,19 +102,23 @@ form > button {
   cursor: pointer;
   transition: all 0.5s;
 }
-form > button:hover {
+.btn:hover {
   opacity: 0.7;
 }
-form > button:disabled {
+.btn:disabled {
   cursor: not-allowed;
   background: var(--color-gray-800);
   color: #fff;
 }
-form > button:disabled:hover {
+.btn:disabled:hover {
   opacity: 1;
 }
 
 .dummy {
   display: block;
   margin-top: 4.7rem;
+}
+
+.error {
+  color: red;
 }

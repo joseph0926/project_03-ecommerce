@@ -1,30 +1,37 @@
-import React from "react";
-import { json, useLoaderData } from "react-router-dom";
+import React, { Suspense } from "react";
+import { json, useLoaderData, Await, defer } from "react-router-dom";
 import API_URL from "../../api-url";
 import { fulfillWithTimeLimit } from "../components/helpers/ApiHelp";
 import Home from "../components/Home/Home";
+import Loading from "../components/UI/Loading";
 
 const HomePage = () => {
-  const featureProducts = useLoaderData();
+  const { featureProducts } = useLoaderData();
 
   return (
-    <>
-      <Home featureProducts={featureProducts} />
-    </>
+    <Suspense fallback={<Loading />}>
+      <Await resolve={featureProducts}>
+        {(loadedProducts) => <Home featureProducts={loadedProducts} />}
+      </Await>
+    </Suspense>
   );
 };
 
-export async function loader() {
+async function loadeFeatureProducts() {
   let timeLimit = 1000;
   let failureValue = null;
-  let data = await fulfillWithTimeLimit(timeLimit, fetch(API_URL), failureValue);
+  let data = await fulfillWithTimeLimit(
+    timeLimit,
+    fetch(API_URL),
+    failureValue
+  );
 
   let response;
   if (data === null) {
-    console.log("asdf");
-    response = await fetch("https://mocki.io/v1/5b3b1257-f7ae-4bfa-abdd-fbcce5b6cb7f");
+    response = await fetch(
+      "https://mocki.io/v1/5b3b1257-f7ae-4bfa-abdd-fbcce5b6cb7f"
+    );
   } else {
-    console.log("qwer");
     response = await fetch(API_URL);
   }
 
@@ -34,6 +41,12 @@ export async function loader() {
     const featureProducts = await response.json();
     return featureProducts;
   }
+}
+
+export function loader() {
+  return defer({
+    featureProducts: loadeFeatureProducts(),
+  });
 }
 
 export default HomePage;

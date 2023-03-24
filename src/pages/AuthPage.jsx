@@ -1,27 +1,17 @@
-import React, { Suspense } from "react";
-import { json, redirect, Await } from "react-router-dom";
+import React from "react";
+import { json, redirect } from "react-router-dom";
 
 import Auth from "../components/user/Auth";
-import Loading from "../components/UI/Loading";
+
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 const AuthPage = () => {
-  // const dispatchFn = useDispatch();
-  const loadingFn = () => {
-    // dispatchFn(uiAction.loading());
-    return <Loading></Loading>;
-  };
-
-  return (
-    <Suspense fallback={loadingFn}>
-      <Await>
-        <Auth />
-      </Await>
-    </Suspense>
-  );
+  return <Auth />;
 };
 
 export async function action({ request, params }) {
   const searchParams = new URL(request.url).searchParams;
+
   const mode = searchParams.get("mode") || "signInWithPassword";
 
   if (mode !== "signInWithPassword" && mode !== "signUp") {
@@ -35,16 +25,22 @@ export async function action({ request, params }) {
     returnSecureToken: true,
   };
 
-  const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:${mode}?key=${API_KEY}`, {
-    method: "POST",
-    body: JSON.stringify(authData),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  const response = await fetch(
+    `https://identitytoolkit.googleapis.com/v1/accounts:${mode}?key=${API_KEY}`,
+    {
+      method: "POST",
+      body: JSON.stringify(authData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  console.log(response);
 
   if (response.status === 400) {
-    return json({ message: "로그인/회원가입에 오류가 발생하였습니다, 다시 시도해주세요!" });
+    return json({
+      message: "로그인/회원가입에 오류가 발생하였습니다, 다시 시도해주세요!",
+    });
   }
   if (!response.ok) {
     return json({ message: "사용자 인증 불가" });
@@ -53,13 +49,13 @@ export async function action({ request, params }) {
   const resData = await response.json();
   const token = resData.idToken;
 
+  console.log(resData);
+
   localStorage.setItem("token", token);
-  localStorage.setItem("userLocalId", userLocalId);
 
   const expiration = new Date();
   expiration.setHours(expiration.getHours() + 1);
   localStorage.setItem("expiration", expiration.toISOString());
-
   return redirect("/");
 }
 

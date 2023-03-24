@@ -9,22 +9,31 @@ import ProductCategory from "./pages/ProductCategory";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import CartPage from "./pages/CartPage";
 import AuthPage, { action as authAction } from "./pages/AuthPage";
+import { action as logoutAction } from "./pages/Logout";
 import AboutPage from "./pages/AboutPage";
+import { tokenLoader, checkAuthLoader } from "./components/helpers/auth";
 
 const App = () => {
   const router = createBrowserRouter([
     {
       path: "/",
       element: <Root />,
+      id: "root",
       errorElement: <ErrorPage />,
+      loader: tokenLoader,
       children: [
         { index: true, element: <HomePage />, loader: featureProductsLoader },
         { path: "products", element: <ProductsPage />, loader: productsLoader },
         { path: "products/:productId", element: <ProductDetailPage /> },
         { path: "category/:productItem", element: <ProductCategory /> },
-        { path: ":userId/cart", element: <CartPage /> },
+        {
+          path: "cart",
+          element: <CartPage />,
+          loader: checkAuthLoader,
+        },
         { path: "auth", element: <AuthPage />, action: authAction },
         { path: "about", element: <AboutPage /> },
+        { path: "logout", action: logoutAction },
       ],
     },
   ]);

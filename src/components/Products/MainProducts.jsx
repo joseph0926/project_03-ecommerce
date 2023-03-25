@@ -2,7 +2,7 @@ import React from "react";
 import Product from "./Product";
 import { Tab } from "@headlessui/react";
 
-const FeatureProducts = ({ products }) => {
+const MainProducts = ({ products }) => {
   const categories = [
     "men's clothing",
     "jewelery",
@@ -27,10 +27,10 @@ const FeatureProducts = ({ products }) => {
           <Tab.List className="flex justify-center">
             {categories.map((category) => (
               <Tab
-                key={category._id}
-                id={category._id}
+                key={category}
+                id={category}
                 className={({ selected }) =>
-                  `whitespace-nowrap rounded-t-lg py-3 px-5 text-sm font-light outline-none md:py-4 md:px-6 md:text-base ${
+                  `whitespace-nowrap rounded-t-lg py-3 px-5 text-sm font-light outline-none md:py-4 md:px-6 md:text-base uppercase ${
                     selected
                       ? "borderGradient bg-[#35383C] text-white"
                       : "border-b-2 border-[#35383C] text-[#747474]"
@@ -53,4 +53,4 @@ const FeatureProducts = ({ products }) => {
   );
 };
 
-export default FeatureProducts;
+export default MainProducts;

@@ -1,5 +1,5 @@
 import React from "react";
-import FeatureProducts from "./FeatureProducts";
+import FeatureProducts from "./MainProducts";
 
 const Products = ({ products }) => {
   return (

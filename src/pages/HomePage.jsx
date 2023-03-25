@@ -6,18 +6,18 @@ import Home from "../components/Home/Home";
 import Loading from "../components/UI/Loading";
 
 const HomePage = () => {
-  const { featureProducts } = useLoaderData();
+  const { mainProducts } = useLoaderData();
 
   return (
     <Suspense fallback={<Loading />}>
-      <Await resolve={featureProducts}>
-        {(loadedProducts) => <Home featureProducts={loadedProducts} />}
+      <Await resolve={mainProducts}>
+        {(loadedProducts) => <Home mainProducts={loadedProducts} />}
       </Await>
     </Suspense>
   );
 };
 
-async function loadeFeatureProducts() {
+async function loadeMainProducts() {
   let timeLimit = 1000;
   let failureValue = null;
   let data = await fulfillWithTimeLimit(
@@ -38,14 +38,14 @@ async function loadeFeatureProducts() {
   if (!response.ok) {
     return json({ message: "상품 데이터를 불러오는데 실패하였습니다,,," });
   } else {
-    const featureProducts = await response.json();
-    return featureProducts;
+    const mainProducts = await response.json();
+    return mainProducts;
   }
 }
 
 export function loader() {
   return defer({
-    featureProducts: loadeFeatureProducts(),
+    mainProducts: loadeMainProducts(),
   });
 }
 

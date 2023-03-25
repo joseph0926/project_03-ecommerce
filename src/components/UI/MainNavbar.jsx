@@ -35,7 +35,7 @@ const MainNavbar = () => {
 
   return (
     <header
-      className={`sticky top-0 z-30 flex w-full items-center justify-between bg-[#E7ECEE] p-4 transition-transform duration-500 `}
+      className={`sticky top-0 z-30 flex w-full items-center justify-between bg-white p-4 transition-transform duration-500 `}
     >
       <div className="flex items-center justify-center md:w-1/5">
         {/* <Link href="/">

@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Carousel } from "react-responsive-carousel";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 import IMG1 from "../../assets/fa.jpg";
 import IMG2 from "../../assets/di.jpg";
@@ -8,8 +10,35 @@ import { BiArrowBack } from "react-icons/bi";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const Hero = () => {
+  useEffect(() => {
+    AOS.init();
+  });
+
   return (
-    <div className="relative text-white text-2xl w-full mx-auto">
+    <div className="relative text-black text-2xl w-[90%] mx-auto flex flex-col h-screen">
+      <h1 className="space-y-3 text-5xl font-semibold tracking-wide lg:text-6xl xl:text-7xl mb-[2rem]">
+        <span
+          className="block bg-gradient-to-r from-pink-400 to-violet-500 bg-clip-text text-transparent"
+          data-aos="fade-right"
+          data-aos-duration="3000"
+        >
+          Fashion
+        </span>
+        <span
+          className="block ml-[5rem] text-pink-600"
+          data-aos="fade-right"
+          data-aos-duration="4000"
+        >
+          Digital
+        </span>
+        <span
+          className="block ml-[10rem] text-violet-600"
+          data-aos="fade-right"
+          data-aos-duration="5000"
+        >
+          Accessories
+        </span>
+      </h1>
       <Carousel
         autoPlay={true}
         infiniteLoop={true}

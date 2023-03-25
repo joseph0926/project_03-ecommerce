@@ -1,30 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Form, Link, useRouteLoaderData } from "react-router-dom";
-import { CartIcon } from "../helpers/Icons";
 import {
-  MenuItem,
-  MobileIcon,
-  NavHelp,
-  SubMenuItem,
-  SubNavHelp,
-} from "../helpers/NavHelp";
-
+  SearchIcon,
+  ShoppingBagIcon,
+  UserIcon,
+} from "@heroicons/react/outline";
 import { FaUserMinus, FaUserPlus } from "react-icons/fa";
 
 const MainNavbar = () => {
   const token = useRouteLoaderData("root");
 
-  const [open, setOpen] = useState("group");
   const [showNav, setShowNav] = useState("translate-y-0");
   const [lastScrollY, setLastScrollY] = useState(0);
-
-  const groupOpenHandler = () => {
-    if (open === "group open") {
-      setOpen("group");
-    } else {
-      setOpen("group open");
-    }
-  };
 
   const controlNavbar = () => {
     if (window.scrollY > 200) {
@@ -47,94 +34,35 @@ const MainNavbar = () => {
   }, [lastScrollY]);
 
   return (
-    <header className="text-zinc-900 sticky top-0 z-20">
-      <nav
-        className={`w-full h-[5rem] flex bg-gradient-to-r from-white to-gray-300 ${showNav} transition-transform duration-300 `}
-      >
-        <div className="flex items-center gap-2 p-4">
-          <Link to="/" className="text-3xl font-bold">
-            E-<span className="text-sky-500">Commerce</span>
-          </Link>
-        </div>
-        <div className="my-auto ml-auto block cursor-pointer pr-4 md:hidden">
-          <div className={`${open} peer`} onClick={groupOpenHandler}>
-            <MobileIcon></MobileIcon>
+    <header
+      className={`sticky top-0 z-30 flex w-full items-center justify-between bg-[#E7ECEE] p-4 transition-transform duration-500 `}
+    >
+      <div className="flex items-center justify-center md:w-1/5">
+        {/* <Link href="/">
+          <div className="relative h-10 w-5 cursor-pointer opacity-75 transition hover:opacity-100">
+            <h3>Logo</h3>
           </div>
-          <div className="absolute top-[62px] left-0 hidden w-full bg-gradient-to-r from-white to-gray-300 peer-open:block">
-            <div
-              className={`group relative h-full cursor-pointer text-zinc-900 transition-colors ease-in-out hover:bg-black/10 hover:text-zinc-700`}
-            >
-              <Link to="/products" className="p-4 text-center font-bold block">
-                Products
-              </Link>
-              <div className="hidden group-hover:flex flex-col">
-                <SubNavHelp category={"fa"}>
-                  <span>패션</span>
-                </SubNavHelp>
-                <SubNavHelp category={"ac"}>
-                  <span>액세서리</span>
-                </SubNavHelp>
-                <SubNavHelp category={"di"}>
-                  <span>디지털</span>
-                </SubNavHelp>
-              </div>
-            </div>
-            <NavHelp menu={`cart`}>
-              <div className="relative block">
-                <div className="flex gap-2">
-                  Cart <CartIcon></CartIcon>
-                </div>
-                <div className="absolute -top-4 -right-4 w-7 h-7 rounded-[50%] flex justify-center items-center bg-zinc-700">
-                  <p className="mb-0 text-lg text-sky-700">0</p>
-                </div>
-              </div>
-            </NavHelp>
-            <NavHelp menu={"about"}>
-              <div>About</div>
-            </NavHelp>
-            <NavHelp menu={"auth"}>
-              <div>Login</div>
-            </NavHelp>
+        </Link> */}
+      </div>
+      <div className="hidden flex-1 items-center justify-center space-x-8 md:flex">
+        <Link to="products" className="headerLink">
+          Product
+        </Link>
+        <Link to="about" className="headerLink">
+          About
+        </Link>
+      </div>
+      <div className="flex items-center justify-center gap-x-4 md:w-1/5">
+        <SearchIcon className="headerIcon" />
+        <Link href="/checkout">
+          <div className="relative cursor-pointer">
+            <span className="absolute -right-1 -top-1 z-50 flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-violet-500 text-[10px] text-white">
+              0
+            </span>
+            <ShoppingBagIcon className="headerIcon" />
           </div>
-        </div>
-        <div className="hidden flex-1 items-center justify-end md:flex">
-          <div className="group text-xl relative flex h-full items-center p-4 font-normal text-zinc-900 transition-colors ease-in-out hover:bg-black/10 hover:text-zinc-700">
-            <span>Products</span>
-            <div className="absolute top-full right-0 hidden w-full whitespace-nowrap rounded-b-md bg-zinc-200 text-right group-hover:flex flex-col">
-              <SubMenuItem category={"fa"}>
-                <span>패션</span>
-              </SubMenuItem>
-              <SubMenuItem category={"ac"}>
-                <span>액세서리</span>
-              </SubMenuItem>
-              <SubMenuItem category={"di"}>
-                <span>디지털</span>
-              </SubMenuItem>
-            </div>
-          </div>
-          <MenuItem menu={`cart`}>
-            <span className="mr-2">Cart</span> <CartIcon></CartIcon>
-          </MenuItem>
-          <MenuItem menu={"about"}>
-            <span>About</span>
-          </MenuItem>
-          {!token && (
-            <MenuItem menu={"auth"}>
-              <span className="mr-2">Login</span> <FaUserPlus></FaUserPlus>
-            </MenuItem>
-          )}
-          {token && (
-            <Form
-              method="post"
-              action="/logout"
-              className="relative text-xl flex h-full cursor-pointer items-center p-4 font-normal text-zinc-900 transition-colors ease-in-out hover:bg-black/10 hover:text-zinc-700"
-            >
-              <button className="mr-2">Logout</button>
-              <FaUserMinus></FaUserMinus>
-            </Form>
-          )}
-        </div>
-      </nav>
+        </Link>
+      </div>
     </header>
   );
 };

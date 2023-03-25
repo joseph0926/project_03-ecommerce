@@ -5,7 +5,7 @@ import Root from "./pages/root";
 import ErrorPage from "./pages/ErrorPage";
 import HomePage, { loader as featureProductsLoader } from "./pages/HomePage";
 import ProductsPage, { loader as productsLoader } from "./pages/ProductsPage";
-import ProductCategory from "./pages/ProductCategory";
+import ProductCategory, { loader as categoryLoader } from "./pages/ProductCategory";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import CartPage from "./pages/CartPage";
 import AuthPage, { action as authAction } from "./pages/AuthPage";
@@ -23,9 +23,19 @@ const App = () => {
       loader: tokenLoader,
       children: [
         { index: true, element: <HomePage />, loader: featureProductsLoader },
-        { path: "products", element: <ProductsPage />, loader: productsLoader },
-        { path: "products/:productId", element: <ProductDetailPage /> },
-        { path: "category/:productItem", element: <ProductCategory /> },
+        {
+          path: "products",
+          // element: <ProductsPage />,
+          id: "products",
+          loader: productsLoader,
+          children: [
+            {
+              path: ":productId",
+              element: <ProductDetailPage />,
+            },
+          ],
+        },
+        { path: "category/:category", element: <ProductCategory />, loader: categoryLoader },
         {
           path: "cart",
           element: <CartPage />,

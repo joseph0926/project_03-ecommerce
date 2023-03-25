@@ -5,9 +5,6 @@ import Root from "./pages/root";
 import ErrorPage from "./pages/ErrorPage";
 import HomePage, { loader as mainProductsLoader } from "./pages/HomePage";
 import ProductsPage, { loader as productsLoader } from "./pages/ProductsPage";
-import ProductCategory, {
-  loader as categoryLoader,
-} from "./pages/ProductCategory";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import CartPage from "./pages/CartPage";
 import AuthPage, { action as authAction } from "./pages/AuthPage";
@@ -27,15 +24,14 @@ const App = () => {
         { index: true, element: <HomePage />, loader: mainProductsLoader },
         {
           path: "products",
-          // element: <ProductsPage />,
+          element: <ProductsPage />,
           id: "products",
           loader: productsLoader,
-          children: [
-            {
-              path: ":productId",
-              element: <ProductDetailPage />,
-            },
-          ],
+        },
+        {
+          path: "products/:productId",
+          element: <ProductDetailPage />,
+          loader: productsLoader,
         },
         {
           path: "cart",

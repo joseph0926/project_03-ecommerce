@@ -1,5 +1,5 @@
 import React from "react";
-import Product from "./Product";
+import ProductCard from "./ProductCard";
 import { Tab } from "@headlessui/react";
 
 const MainProducts = ({ products }) => {
@@ -8,7 +8,7 @@ const MainProducts = ({ products }) => {
   const showProducts = (categoryIdx) => {
     return products
       .filter((product) => product.category.includes(categories[categoryIdx]))
-      .map((product) => <Product product={product} key={product.id} />);
+      .map((product) => <ProductCard product={product} key={product.id} />);
   };
 
   return (

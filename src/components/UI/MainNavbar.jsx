@@ -14,7 +14,7 @@ const MainNavbar = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
 
   const controlNavbar = () => {
-    if (window.scrollY > 200) {
+    if (window.scrollY) {
       if (window.scrollY > lastScrollY) {
         setShowNav("-translate-y-[80px]");
       } else {
@@ -35,14 +35,14 @@ const MainNavbar = () => {
 
   return (
     <header
-      className={`sticky top-0 z-30 flex w-full items-center justify-between bg-white p-4 transition-transform duration-500 `}
+      className={`sticky top-0 z-30 flex w-full items-center justify-between bg-white p-4 transition-transform duration-300 ${showNav}`}
     >
       <div className="flex items-center justify-center md:w-1/5">
-        {/* <Link href="/">
+        <Link to="/">
           <div className="relative h-10 w-5 cursor-pointer opacity-75 transition hover:opacity-100">
             <h3>Logo</h3>
           </div>
-        </Link> */}
+        </Link>
       </div>
       <div className="hidden flex-1 items-center justify-center space-x-8 md:flex">
         <Link to="products" className="headerLink">

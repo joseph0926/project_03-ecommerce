@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { calculateTotals } from "./store/slice/cart-slice";
 
 import Root from "./pages/root";
 import ErrorPage from "./pages/ErrorPage";
@@ -13,6 +15,13 @@ import AboutPage from "./pages/AboutPage";
 import { tokenLoader, checkAuthLoader } from "./components/helpers/auth";
 
 const App = () => {
+  const { cartItems } = useSelector((state) => state.cart);
+  const dispatchFn = useDispatch();
+
+  useEffect(() => {
+    dispatchFn(calculateTotals());
+  }, [cartItems]);
+
   const router = createBrowserRouter([
     {
       path: "/",

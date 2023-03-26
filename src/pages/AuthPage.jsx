@@ -45,8 +45,6 @@ export async function action({ request, params }) {
   const resData = await response.json();
   const token = resData.idToken;
 
-  console.log(resData);
-
   localStorage.setItem("token", token);
 
   const expiration = new Date();

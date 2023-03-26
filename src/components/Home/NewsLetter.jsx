@@ -21,12 +21,13 @@ const NewsLetter = () => {
             <div className="flex flex-col sm:flex-row gap-6 mt-8 w-[50%]">
               <input
                 type="text"
-                placeholder="email..."
+                placeholder="준비중,,,"
                 className="border-2 flex-1 px-2 py-3 rounded-md text-black"
               />
               <button
                 type="button"
-                className="px-4 py-2 text-white transition-colors duration-200 bg-violet-600 hover:bg-white hover:text-black"
+                disabled={true}
+                className="px-4 py-2 text-white transition-colors duration-200 bg-violet-600 hover:bg-white hover:text-black cursor-not-allowed"
               >
                 Contact
               </button>

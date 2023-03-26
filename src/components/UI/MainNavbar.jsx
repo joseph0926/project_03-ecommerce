@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Form, Link, useRouteLoaderData } from "react-router-dom";
-import { SearchIcon, ShoppingBagIcon, UserIcon } from "@heroicons/react/outline";
+import {
+  SearchIcon,
+  ShoppingBagIcon,
+  UserIcon,
+} from "@heroicons/react/outline";
 import { FiUserPlus, FiUserMinus } from "react-icons/fi";
+import { useSelector } from "react-redux";
 
 const MainNavbar = () => {
+  const { amount } = useSelector((state) => state.cart);
   const token = useRouteLoaderData("root");
 
   const [showNav, setShowNav] = useState("translate-y-0");
@@ -30,7 +36,9 @@ const MainNavbar = () => {
   }, [lastScrollY]);
 
   return (
-    <header className={`sticky top-0 z-30 flex w-full items-center justify-between bg-white p-4 transition-transform duration-300`}>
+    <header
+      className={`sticky top-0 z-30 flex w-full items-center justify-between bg-white p-4 transition-transform duration-300`}
+    >
       <div className="flex items-center justify-center md:w-1/5">
         <Link to="/">
           <div className="relative h-10 w-5 cursor-pointer opacity-75 transition hover:opacity-100">
@@ -50,7 +58,7 @@ const MainNavbar = () => {
         <Link to="cart">
           <div className="relative cursor-pointer">
             <span className="absolute -right-1 -top-1 z-50 flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-violet-500 text-[10px] text-white">
-              0
+              {amount}
             </span>
             <ShoppingBagIcon className="headerIcon" />
           </div>

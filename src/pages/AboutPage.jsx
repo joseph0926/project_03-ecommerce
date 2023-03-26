@@ -1,7 +1,8 @@
 import React from "react";
+import Dummy from "../components/UI/Dummy";
 
 const AboutPage = () => {
-  return <div>AboutPage</div>;
+  return <Dummy />;
 };
 
 export default AboutPage;

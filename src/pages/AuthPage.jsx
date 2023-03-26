@@ -25,17 +25,13 @@ export async function action({ request, params }) {
     returnSecureToken: true,
   };
 
-  const response = await fetch(
-    `https://identitytoolkit.googleapis.com/v1/accounts:${mode}?key=${API_KEY}`,
-    {
-      method: "POST",
-      body: JSON.stringify(authData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
-  console.log(response);
+  const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:${mode}?key=${API_KEY}`, {
+    method: "POST",
+    body: JSON.stringify(authData),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 
   if (response.status === 400) {
     return json({

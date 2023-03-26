@@ -13,12 +13,12 @@ const Products = ({ products }) => {
 
   return (
     <>
-      <div className="my-8 flex flex-col justify-center items-center">
-        {categories.map((category) => {
+      <div className="my-8 flex flex-col justify-center">
+        {categories.map((category, idx) => {
           return (
             <div key={category} className="mx-2">
               <h3 className="my-8 font-medium">{category}</h3>
-              <div className="flex flex-wrap">{showProducts(0)}</div>
+              <div className="flex flex-wrap">{showProducts(idx)}</div>
             </div>
           );
         })}

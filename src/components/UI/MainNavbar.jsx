@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Form, Link, useRouteLoaderData } from "react-router-dom";
-import {
-  SearchIcon,
-  ShoppingBagIcon,
-  UserIcon,
-} from "@heroicons/react/outline";
-import { FaUserMinus, FaUserPlus } from "react-icons/fa";
+import { SearchIcon, ShoppingBagIcon, UserIcon } from "@heroicons/react/outline";
+import { FiUserPlus, FiUserMinus } from "react-icons/fi";
 
 const MainNavbar = () => {
   const token = useRouteLoaderData("root");
@@ -34,9 +30,7 @@ const MainNavbar = () => {
   }, [lastScrollY]);
 
   return (
-    <header
-      className={`sticky top-0 z-30 flex w-full items-center justify-between bg-white p-4 transition-transform duration-300 ${showNav}`}
-    >
+    <header className={`sticky top-0 z-30 flex w-full items-center justify-between bg-white p-4 transition-transform duration-300`}>
       <div className="flex items-center justify-center md:w-1/5">
         <Link to="/">
           <div className="relative h-10 w-5 cursor-pointer opacity-75 transition hover:opacity-100">
@@ -52,9 +46,8 @@ const MainNavbar = () => {
           About
         </Link>
       </div>
-      <div className="flex items-center justify-center gap-x-4 md:w-1/5">
-        <SearchIcon className="headerIcon" />
-        <Link href="/checkout">
+      <div className="flex items-center justify-center gap-x-8 md:w-1/5">
+        <Link to="cart">
           <div className="relative cursor-pointer">
             <span className="absolute -right-1 -top-1 z-50 flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-violet-500 text-[10px] text-white">
               0
@@ -62,6 +55,20 @@ const MainNavbar = () => {
             <ShoppingBagIcon className="headerIcon" />
           </div>
         </Link>
+        {!token && (
+          <Link to="auth">
+            <div className="relative cursor-pointer">
+              <FiUserPlus size={25} />
+            </div>
+          </Link>
+        )}
+        {token && (
+          <Form method="post" action="/logout">
+            <button type="submit" className="relative cursor-pointer">
+              <FiUserMinus size={25} />
+            </button>
+          </Form>
+        )}
       </div>
     </header>
   );

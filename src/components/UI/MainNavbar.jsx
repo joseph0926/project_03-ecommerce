@@ -6,9 +6,11 @@ import {
   UserIcon,
 } from "@heroicons/react/outline";
 import { FiUserPlus, FiUserMinus } from "react-icons/fi";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { clearCart } from "../../store/slice/cart-slice";
 
 const MainNavbar = () => {
+  const dispatchFn = useDispatch();
   const { amount } = useSelector((state) => state.cart);
   const token = useRouteLoaderData("root");
 
@@ -64,7 +66,7 @@ const MainNavbar = () => {
           </div>
         </Link>
         {!token && (
-          <Link to="auth">
+          <Link to="auth?mode=signInWithPassword">
             <div className="relative cursor-pointer">
               <FiUserPlus size={25} />
             </div>

@@ -9,21 +9,17 @@ const Product = ({ productId, product }) => {
   const singleProduct = product.find((p) => {
     return p.id === +productId;
   });
-  const { id, image, title, rating, price, description, category } =
-    singleProduct;
+  const { id, image, title, rating, price, description, category } = singleProduct;
   const dipatchFn = useDispatch();
 
   return (
     <div>
       <div className="w-full flex flex-col justify-center items-center p-8">
-        <Link to="/" className="">
+        <Link to="/" className="btn">
           상품 전체보기
         </Link>
-        <div className="flex gap-8 mt-8 max-md:w-screen">
-          <img
-            src={image}
-            className="w-[20rem] h-[20rem] max-md:w-[10rem] max-md:h-[10rem]"
-          ></img>
+        <div className="flex gap-8 mt-8 w-[80%] max-md:w-screen">
+          <img src={image} className="w-[20rem] h-[20rem] max-md:w-[10rem] max-md:h-[10rem]"></img>
           <section className="flex flex-col justify-center">
             <h2 className="max-md:text-sm">{title}</h2>
             <Stars rates={rating} />
@@ -44,11 +40,11 @@ const Product = ({ productId, product }) => {
                 onClick={() => {
                   dipatchFn(addToCart(singleProduct));
                 }}
-                className="max-md:mb-8"
+                className="btn max-md:mb-8"
               >
                 카트에 담기
               </button>
-              <div className="cursor-not-allowed">
+              <div className="btn cursor-not-allowed">
                 <Link to="asdasdasd" className="pointer-events-none">
                   구매하기
                 </Link>

@@ -47,8 +47,7 @@
   .borderGradient {
     text-align: center;
     padding-bottom: 5px;
-    background: linear-gradient(to right, #ec4899, #8b5cf6) left bottom
-      no-repeat;
+    background: linear-gradient(to right, #ec4899, #8b5cf6) left bottom no-repeat;
     background-size: 100% 2px;
   }
 
@@ -140,4 +139,21 @@
 }
 .sign-container .sign-formBox.active {
   left: 50%;
+}
+
+@media (max-width: 800px) {
+  .sign-container .sign-content {
+    position: absolute;
+    top: 0;
+    width: 420px;
+    height: 900px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .sign-container .sign-formBox.active {
+    top: 70%;
+    left: 0;
+  }
 }

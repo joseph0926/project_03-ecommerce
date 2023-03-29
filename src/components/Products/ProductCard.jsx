@@ -19,10 +19,10 @@ const ProductCard = ({ product }) => {
       </div>
       <div className="mt-4 h-full flex flex-col justify-between items-center">
         <p className="max-md:w-32 font-bold text-sm max-md:text-xs max-md:truncate">
-          <Link to={`${id}`}>{title}</Link>
+          <Link to={`/products/${id}`}>{title}</Link>
         </p>
         <p className="font-light text-xl max-md:text-xs text-zinc-700">
-          <Link to={`${id}`}>${price.toFixed(2)}</Link>
+          <Link to={`/products/${id}`}>${price.toFixed(2)}</Link>
         </p>
       </div>
     </div>
